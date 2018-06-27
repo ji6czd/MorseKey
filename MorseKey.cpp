@@ -6,7 +6,7 @@
 
 class Morse {
 public:
-	typedef std::vector<char> MorseChar;
+	typedef std::array<char, 5> MorseChar;
 	Morse();
 	bool keyIn();
 	bool keyOff();
@@ -16,7 +16,7 @@ public:
 	bool putc(char c);
 private:
 	static std::array<MorseChar, 50> MorseTable; // モールス符号表
-	MorseChar inBuffer; // 入力中の符号列
+	std::vector<char> inBuffer; // 入力中の符号列
 	uint16_t sShort_t; // 短点一つ分の長さ
 };
 
@@ -24,6 +24,7 @@ std::array<Morse::MorseChar, 50> Morse::MorseTable;
 Morse::Morse()
 {
 	#include "MorseTable.tbl"
+	std::cout << sizeof(MorseTable) << std::endl;
 	return;
 }
 
