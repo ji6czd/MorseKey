@@ -1,6 +1,11 @@
 #include <iostream>
 #include <wiringPi.h>
+#include <softTone.h>
 #include "MorsePi.hpp"
+#include <unistd.h>
+#include <time.h>
+#define KEY 5
+#define BZ 6
 
 bool MorsePi::putc(char c)
 {
@@ -15,3 +20,24 @@ bool MorsePi::putc(char c)
 		std::cout << " ";
 	return true;
 }
+bool Morse::setupIO()
+{
+	if (!wiringPiSetupGpio())  {
+		return false;
+	}
+	pinMode(KEY, INP);
+	pullUpDnControl(KEY, PUD_UP);
+	if (!softToneCreate(BZ)) {
+		return false;
+	}
+	return true;
+}
+
+bool MorsePi::keyIn()
+{
+	return true;
+}
+
+bool MorsePi::Start() {
+	while(1) {
+		
