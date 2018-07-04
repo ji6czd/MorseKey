@@ -13,19 +13,19 @@ bool MorsePi::putc(char c)
 			std::cout << " ";
 		}
 	else if (std::isalnum(c)) {
-		for (auto s : MorseTable.at(std::toupper(c-0x30))) {
+		for (auto s : MorseTable[std::toupper(c-0x30)]) {
 			std::cout << s;
 		}
 	}
 		std::cout << " ";
 	return true;
 }
-bool Morse::setupIO()
+bool MorsePi::setupIO()
 {
 	if (!wiringPiSetupGpio())  {
 		return false;
 	}
-	pinMode(KEY, INP);
+	pinMode(KEY, INPUT);
 	pullUpDnControl(KEY, PUD_UP);
 	if (!softToneCreate(BZ)) {
 		return false;
@@ -38,6 +38,3 @@ bool MorsePi::keyIn()
 	return true;
 }
 
-bool MorsePi::Start() {
-	while(1) {
-		

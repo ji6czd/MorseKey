@@ -5,6 +5,8 @@
 
 class MorsePi: public Morse {
 public:
-	bool putc(char c);
+  bool putc(char c);
+  bool setupIO();
+  bool keyIn();
 };
 #endif

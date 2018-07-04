@@ -4,6 +4,8 @@
 #include <vector>
 #include <cctype>
 #include "Morse.hpp"
+#include "MorseTable.tbl"
+
 Morse::Morse()
 {
 	std::cout << sizeof(MorseTable) << std::endl;
@@ -19,7 +21,7 @@ bool Morse::Clear()
 char Morse::Detect(char s)
 {
 	inBuffer.push_back(s);
-	return true;
+	return ' ';
 }
 
 bool Morse::End()

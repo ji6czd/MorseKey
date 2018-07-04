@@ -1,6 +1,7 @@
 #ifndef _MORSE_KEY_
 #define _MORSE_KEY_
 
+#include <vector>
 #include <cctype>
 #include <time.h>
 #include <unistd.h>
@@ -14,7 +15,7 @@ public:
 	virtual bool Start() {return true; };
 	char Detect(char s);
 	bool Clear();
-	bool End();
+	virtual bool End();
 	virtual bool putc(char c) { return true; };
 	virtual int getSpeed() { return cpm; };
 protected:
@@ -25,6 +26,5 @@ private:
 	uint16_t sShort_t; // 短点一つ分の長さ
 	timespec t_keyIn, t_keyOff;
 };
-#include "MorseTable.tbl"
 #endif
 
