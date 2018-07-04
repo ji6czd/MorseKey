@@ -4,10 +4,8 @@
 #include <vector>
 #include <cctype>
 #include "Morse.hpp"
-std::array<Morse::MorseChar, 50> Morse::MorseTable;
 Morse::Morse()
 {
-	#include "MorseTable.tbl"
 	std::cout << sizeof(MorseTable) << std::endl;
 	return;
 }
@@ -32,20 +30,11 @@ bool Morse::End()
 
 bool Morse::keyIn()
 {
-	return true;
-}
-
-bool Morse::keyOff()
-{
-	return 0;
-}
-
-bool Morse::keyIn()
-{
 	clock_gettime(CLOCK_MONOTONIC, &t_keyIn);
 	return true;
 }
 
 bool Morse::keyOff()
 {
+	return true;
 }
