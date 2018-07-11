@@ -13,9 +13,15 @@ bool MorsePi::putc(char c)
 			std::cout << " ";
 		}
 	else if (std::isalnum(c)) {
-		for (auto s : MorseTable[std::toupper(c-0x30)]) {
-			std::cout << s;
-		}
+		uint8_t s = MorseTable[toupper(c)-0x30];
+		while (s != 1) {
+			if (s & 0b1) {
+				std::cout << '-';
+			} else {
+				std::cout << '.';
+			}
+			s >>= 1;
+			}
 	}
 		std::cout << " ";
 	return true;
