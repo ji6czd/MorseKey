@@ -10,6 +10,7 @@ const unsigned char  Morse::MorseTable[] = {
   0b100111,
   0b101111,
   0,0,0,0,0,0,
+  0,
   0b110,
   0b10001,
   0b10101,
