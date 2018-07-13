@@ -9,7 +9,7 @@ public:
 	bool keyIn() { return true; };
 	bool keyOff() { return true; };
 	bool Start() {return true; };
-	bool sendC(char c);
+	bool sendC(int c);
 	char Detect(char s);
 	bool Clear();
 	bool End() { return true; };
@@ -28,7 +28,7 @@ Morse::Morse()
 	return;
 }
 
-bool Morse::sendC(char c)
+bool Morse::sendC(int c)
 {
 	if (isspace(c)) {
 		Serial.write(" ");
@@ -49,13 +49,12 @@ bool Morse::sendC(char c)
 }
 
 Morse mOut;
-const char msg[] = "Hello World.";
 void loop()
 {
-	for (char const* c=msg; *c!='\0'; c++) {
-	mOut.sendC(*c);
+	int c = Serial.read();
+	if (isalnum(c)) {
+		mOut.sendC(c);
+		Serial.write("\r\n");
 	}
-	Serial.write("\r\n");
-	delay(1000);
   return;
 }
