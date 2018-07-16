@@ -11,6 +11,7 @@ int main()
 		morseOut.SendChar(c);
 	}
 	std::cout << std::endl;
+	morseOut.setupIO();
 	morseOut.Start();
 	return 0;
 }
