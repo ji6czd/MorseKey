@@ -51,7 +51,7 @@ bool MorsePi::Start()
 			; // waiting keyin...
 		}
 		keyIn();
-		std::cout << shortSig << std::endl;
+		std::cout << "keyin:" << shortSig << std::endl;
 		keyOff();
 	}
 	return true;
