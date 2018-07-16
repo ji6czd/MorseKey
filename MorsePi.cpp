@@ -66,6 +66,6 @@ uint16_t MorsePi::pulseLength(bool defStat)
 	}
 	clock_gettime(CLOCK_MONOTONIC, &end);
 	uint16_t len = (end.tv_sec-start.tv_sec)*1000;
-	return len+(end.tv_nsec-start.tv_nsec)/1000;
+	return len+(end.tv_nsec-start.tv_nsec)/1000/1000;
 	return len;
 }
