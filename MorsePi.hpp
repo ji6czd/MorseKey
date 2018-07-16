@@ -5,8 +5,10 @@
 
 class MorsePi: public Morse {
 public:
-  bool putc(char c);
-  bool setupIO();
-  bool keyIn();
+  bool SendChar(char c);
+	bool setupIO();
+	bool keyIn();
+	bool Start();
+	uint16_t pulseLength(bool defStat);
 };
 #endif

@@ -6,11 +6,11 @@ using namespace std;
 int main()
 {
 	MorsePi morseOut;
-	cout << morseOut.getSpeed() << endl;
 	const char msg[] = "Hello World";
 	for (auto c : msg) {
-		morseOut.putc(c);
+		morseOut.SendChar(c);
 	}
 	std::cout << std::endl;
+	morseOut.Start();
 	return 0;
 }

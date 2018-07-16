@@ -32,7 +32,6 @@ bool Morse::End()
 
 bool Morse::keyIn()
 {
-	clock_gettime(CLOCK_MONOTONIC, &t_keyIn);
 	return true;
 }
 

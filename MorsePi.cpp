@@ -6,8 +6,8 @@
 #include <time.h>
 #define KEY 5
 #define BZ 6
-
-bool MorsePi::putc(char c)
+using namespace std;
+bool MorsePi::SendChar(char c)
 {
 	if (std::isspace(c)) {
 			std::cout << " ";
@@ -41,6 +41,29 @@ bool MorsePi::setupIO()
 
 bool MorsePi::keyIn()
 {
+	shortSig = pulseLength(true);
+}
+
+bool MorsePi::Start()
+{
+	while(1) {
+		while(digitalRead(KEY)) {
+			; // waiting keyin...
+		}
+		keyIn();
+		std::cout << shortSig << std::endl;
+		keyOff();
+	}
 	return true;
 }
 
+uint16_t MorsePi::pulseLength(bool defStat)
+{
+	timespec start, end;
+	clock_gettime(CLOCK_MONOTONIC, &start);
+	while(digitalRead(KEY) != defStat) {
+		; // wating pin state changed
+	}
+	clock_gettime(CLOCK_MONOTONIC, &end);
+	return (end.tv_nsec-start.tv_nsec)*1000;
+}

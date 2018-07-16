@@ -3,9 +3,10 @@
 
 #include <vector>
 #include <cctype>
+#include <cstdint>
 #include <time.h>
 #include <unistd.h>
-
+using namespace std;
 class Morse {
 public:
 	Morse();
@@ -16,15 +17,15 @@ public:
 	char Detect(char s);
 	bool Clear();
 	virtual bool End();
-	virtual bool putc(char c) { return true; };
+	virtual bool SendChar(char c) { return true; };
 	virtual int getSpeed() { return cpm; };
+  virtual uint16_t pulseLength(bool defStat) { return 0; };
 protected:
-	static const unsigned char MorseTable[];
-private:
+	static const uint8_t MorseTable[];
 	uint8_t cpm; // モールス符号の速さ
 	std::vector<unsigned char> inBuffer; // 入力中の符号列
-	uint16_t sShort_t; // 短点一つ分の長さ
-	timespec t_keyIn, t_keyOff;
+	uint16_t shortSig; // 短点一つ分の長さ
+private:
 };
 #endif
 
