@@ -8,6 +8,7 @@
 
 Morse::Morse()
 {
+	shortSig=60;
 	std::cout << sizeof(MorseTable) << std::endl;
 	return;
 }

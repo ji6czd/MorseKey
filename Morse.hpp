@@ -22,10 +22,12 @@ public:
   virtual uint16_t pulseLength(bool defStat) { return 0; };
 protected:
 	static const uint8_t MorseTable[];
+	uint16_t setShortSig(uint16_t len) { shortSig=len; return shortSig; };
+	uint16_t getShortSig() { return shortSig; };
+private:
 	uint8_t cpm; // モールス符号の速さ
 	std::vector<unsigned char> inBuffer; // 入力中の符号列
 	uint16_t shortSig; // 短点一つ分の長さ
-private:
 };
 #endif
 

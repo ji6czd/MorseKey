@@ -41,12 +41,12 @@ bool MorsePi::setupIO()
 
 bool MorsePi::keyIn()
 {
-	shortSig = pulseLength(true);
+	setShortSig(pulseLength(true));
 }
 
 bool MorsePi::keyOff()
 {
-	shortSig = pulseLength(false);
+	setShortSig(pulseLength(false));
 }
 
 bool MorsePi::Start()
@@ -56,9 +56,9 @@ bool MorsePi::Start()
 			; // waiting keyin...
 		}
 		keyIn();
-		std::cout << "keyoff:" << shortSig << std::endl;
+		std::cout << "keyoff:" << getShortSig() << std::endl;
 		keyOff();
-		std::cout << "keyoff:" << shortSig << std::endl;
+		std::cout << "keyoff:" << getShortSig() << std::endl;
 	}
 	return true;
 }
