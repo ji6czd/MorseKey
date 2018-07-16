@@ -8,7 +8,8 @@ public:
   bool SendChar(char c);
 	bool setupIO();
 	bool keyIn();
-	bool Start();
+	bool keyOff();
+  bool Start();
 	uint16_t pulseLength(bool defStat);
 };
 #endif

@@ -44,6 +44,11 @@ bool MorsePi::keyIn()
 	shortSig = pulseLength(true);
 }
 
+bool MorsePi::keyIn()
+{
+	shortSig = pulseLength(true);
+}
+
 bool MorsePi::Start()
 {
 	while(1) {
@@ -53,6 +58,7 @@ bool MorsePi::Start()
 		keyIn();
 		std::cout << "keyin:" << shortSig << std::endl;
 		keyOff();
+		std::cout << "keyoff:" << shortSig << std::endl;
 	}
 	return true;
 }
