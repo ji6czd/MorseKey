@@ -15,14 +15,8 @@ Morse::Morse()
 
 bool Morse::Clear()
 {
-	inBuffer.clear();
+	inBuffer = 1;
 	return true;
-}
-
-char Morse::Detect(char s)
-{
-	inBuffer.push_back(s);
-	return ' ';
 }
 
 bool Morse::End()
@@ -39,4 +33,30 @@ bool Morse::keyIn()
 bool Morse::keyOff()
 {
 	return true;
+}
+
+char Morse::Detect(int s)
+{
+	std::cout << "Sig:" << s << std::endl;
+	switch (s) {
+	case 0:
+		std::cout << "Complete:" << (int)inBuffer << std::endl;
+		inBuffer=1;
+		return 'c';
+		break;
+	case 1:
+		inBuffer <<= 1;
+		inBuffer += 0;
+		break;
+	case 2:
+		inBuffer <<= 1;
+		inBuffer += 1;
+		break;
+	case -1:
+		inBuffer = 1;
+		return -1;
+		break;
+	}
+	std::cout << inBuffer << std::endl;
+	return 0;
 }

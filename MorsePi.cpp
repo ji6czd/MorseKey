@@ -6,6 +6,8 @@
 #include <time.h>
 #define KEY 5
 #define BZ 6
+#define DEF_SHORT 100
+
 using namespace std;
 bool MorsePi::SendChar(char c)
 {
@@ -41,24 +43,30 @@ bool MorsePi::setupIO()
 
 bool MorsePi::keyIn()
 {
-	setShortSig(pulseLength(true));
+	setShortSig(pulseLength(false));
 }
 
 bool MorsePi::keyOff()
 {
-	setShortSig(pulseLength(false));
+	setShortSig(pulseLength(true));
 }
 
 bool MorsePi::Start()
 {
 	while(1) {
-		while(digitalRead(KEY)) {
-			; // waiting keyin...
+		keyOff();
+		if (getShortSig() > (DEF_SHORT*0.7*3) && getShortSig() < (DEF_SHORT*1.3*3)) {
+			// 短点三つ分のスペースを検出したら
+			Detect(0);
 		}
 		keyIn();
-		std::cout << "keyoff:" << getShortSig() << std::endl;
-		keyOff();
-		std::cout << "keyoff:" << getShortSig() << std::endl;
+		if (getShortSig() > (DEF_SHORT*0.7*3) && getShortSig() < (DEF_SHORT*1.3*3)) {
+			// 短点三つ分を検出したら
+			Detect(2);
+		} else if (getShortSig() > (DEF_SHORT*0.7) && getShortSig() < (DEF_SHORT*1.3)) {
+			// 短点を検出したら
+			Detect(1);
+		}
 	}
 	return true;
 }
@@ -67,11 +75,21 @@ uint16_t MorsePi::pulseLength(bool defStat)
 {
 	timespec start, end;
 	clock_gettime(CLOCK_MONOTONIC, &start);
-	while(digitalRead(KEY) != defStat) {
-		; // wating pin state changed
+	while(1) {
+		while(digitalRead(KEY) == defStat) {
+		; // waiting pin state changed
+		}
+		usleep(5000);
+		if (digitalRead(KEY) != defStat) break;
+		// 5ms待ってみて状態が変化してなかったら本物。そうでなければおそらくチャタリング
 	}
 	clock_gettime(CLOCK_MONOTONIC, &end);
 	uint16_t len = (end.tv_sec-start.tv_sec)*1000;
-	return len+(end.tv_nsec-start.tv_nsec)/1000/1000;
+	len+=(end.tv_nsec-start.tv_nsec)/1000/1000;
+	/*if (defStat == false) 
+		std::cout << "Keyin:";
+	else
+		std::cout << "Keyoff:";
+		std::cout << len << endl;*/
 	return len;
 }
